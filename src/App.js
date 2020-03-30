@@ -10,12 +10,12 @@ const App = () => {
   const [isDisabledSubDistrictSelect, setIsDisabledSubDistrictSelect] = useState(true)
 
   const onSetZipCode = (e) => {
-    if (/\b\d{5}\b/.test(e) && thai.autoSuggestion(e).subDistrict) {
+    if (/^\d{5}$/.test(e) && thai.autoSuggestion(e).subDistrict) {
       setZipCode(e)
       setSubDistrict(thai.autoSuggestion(e).subDistrict)
       setIsDisabledSubDistrictSelect(false)
     } else {
-      if (e.length <= 5) {
+      if (/^\d{0,5}$/.test(e)) {
         setZipCode(e)
       }
       setSubDistrict([])
