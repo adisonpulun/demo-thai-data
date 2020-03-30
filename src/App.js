@@ -50,7 +50,6 @@ const App = () => {
     </div>
       <div className="grid grid-cols-12 gap-2 mt-4">
         <div  className="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-        <div className="w-full">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="zipCode">
@@ -59,10 +58,8 @@ const App = () => {
               <input value={zipCode} onChange={e => onSetZipCode(e.target.value)} className="shadow appearance-none border border-gray-200 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:border-gray-500" id="zipCode" type="text" placeholder="รหัสไปรษณีย์"/>
             </div>
           </form>
-          </div>
         </div>
         <div className="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-        <div className="w-full">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="subDistrict">
@@ -90,10 +87,8 @@ const App = () => {
           </div>
             </div>
           </form>
-          </div>
         </div>
         <div className="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-        <div className="w-full">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="district">
@@ -102,10 +97,8 @@ const App = () => {
               <input value={district} className="bg-gray-200 shadow appearance-none border border-gray-200  block w-full text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="district" type="text" placeholder="เลือก อำเภอ/เขต" disabled/>
             </div>
           </form>
-          </div>
         </div>
         <div className="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-        <div className="w-full">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="province">
@@ -114,7 +107,6 @@ const App = () => {
               <input value={province} className="bg-gray-200 shadow appearance-none border border-gray-200  block w-full text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="province" type="text" placeholder="เลือก จังหวัด" disabled/>
             </div>
           </form>
-          </div>
         </div>
         </div>
       </div>
