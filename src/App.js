@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 const thai = require('thai-data')
 
 const App = () => {
-  
   const [zipCode, setZipCode] = useState('')
   const [subDistrict, setSubDistrict] = useState(Array)
   const [subDistrictSelect, setSubDistrictSelect] = useState('')
@@ -11,18 +10,19 @@ const App = () => {
   const [isDisabledSubDistrictSelect, setIsDisabledSubDistrictSelect] = useState(true)
 
   const onSetZipCode = (e) => {
-    setSubDistrictSelect('')
-    setDistrict('')
-    setProvince('')
-
-    if (/^\d{0,5}$/.test(e)) {
+    if (/\b\d{5}\b/.test(e) && thai.autoSuggestion(e).subDistrict) {
       setZipCode(e)
-      if (thai.autoSuggestion(e).subDistrict) {
-        setSubDistrict(thai.autoSuggestion(e).subDistrict)
-        setIsDisabledSubDistrictSelect(false)
-      } else {
-        setIsDisabledSubDistrictSelect(true)
+      setSubDistrict(thai.autoSuggestion(e).subDistrict)
+      setIsDisabledSubDistrictSelect(false)
+    } else {
+      if (e.length <= 5) {
+        setZipCode(e)
       }
+      setSubDistrict([])
+      setSubDistrictSelect('')
+      setDistrict('')
+      setProvince('')
+      setIsDisabledSubDistrictSelect(true)
     }
   }
 
@@ -44,7 +44,7 @@ const App = () => {
       <div className="py-1"><svg className="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
       <div>
         <p className="font-bold">ฟอร์ม สำหรับกรอก รหัสไปรษณีย์, ตำบล, อำเภอ และ จังหวัด ในประเทศไทย</p>
-        <p className="text-sm">ได้รับแรงบรรดาลใจ จาก เราไม่ทิ้งกัน.com</p>
+        <p className="text-sm">ได้รับแรงบันดาลใจ จาก เราไม่ทิ้งกัน.com</p>
       </div>
     </div>
     </div>
