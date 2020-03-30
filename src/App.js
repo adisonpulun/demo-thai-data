@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 const thai = require('thai-data')
-function App() {
+
+const App = () => {
   
   const [zipCode, setZipCode] = useState('')
   const [subDistrict, setSubDistrict] = useState(Array)
   const [subDistrictSelect, setSubDistrictSelect] = useState('')
   const [district, setDistrict] = useState('')
   const [province, setProvince] = useState('')
+  const [isDisabledSubDistrictSelect, setIsDisabledSubDistrictSelect] = useState(true)
 
   const onSetZipCode = (e) => {
     setSubDistrictSelect('')
@@ -15,7 +17,12 @@ function App() {
 
     if (/^\d{0,5}$/.test(e)) {
       setZipCode(e)
-      setSubDistrict((thai.autoSuggestion(e) || null).subDistrict)
+      if (thai.autoSuggestion(e).subDistrict) {
+        setSubDistrict(thai.autoSuggestion(e).subDistrict)
+        setIsDisabledSubDistrictSelect(false)
+      } else {
+        setIsDisabledSubDistrictSelect(true)
+      }
     }
   }
 
@@ -62,16 +69,20 @@ function App() {
               ตำบล/แขวง *
               </label>
             <div className="relative">
-            <select onChange={e => onSetDistrict(e.target.value)} value={subDistrictSelect} disabled={zipCode.length === 5 ? false : true} className={`block shadow  ${Array.isArray(subDistrict) && subDistrict.length ? 'text-gray-700' : 'bg-gray-200 text-gray-500'}  appearance-none w-full border border-gray-200 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`} id="subDistrict" placeholder="">
-              <option value="" disabled={Array.isArray(subDistrict) && subDistrict.length ? true : false} >เลือก ตำบล/แขวง</option>
-              { Array.isArray(subDistrict) && subDistrict.length && 
-                subDistrict.map((item, index) => {
-                  return <option key={index}>{ item }</option>
-                })
+            <select 
+              onChange={e => onSetDistrict(e.target.value)}
+              value={subDistrictSelect} disabled={zipCode.length === 5 ? false : true} 
+              className={`block shadow  ${!isDisabledSubDistrictSelect ? 'text-gray-700' : 'bg-gray-200 text-gray-500'}  appearance-none w-full border border-gray-200 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
+              id="subDistrict" 
+              placeholder=""
+            >
+              <option value="" disabled={!isDisabledSubDistrictSelect ? true : false} >เลือก ตำบล/แขวง</option>
+              { !isDisabledSubDistrictSelect && 
+                subDistrict.map((item, index) => <option key={index}>{ item }</option>)
               }
             </select>
             {
-              Array.isArray(subDistrict) && subDistrict.length !== 0 &&
+              !isDisabledSubDistrictSelect &&
                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
               </div>
